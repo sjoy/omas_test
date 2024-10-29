@@ -1,5 +1,5 @@
-from pathlib import Path
 import os
+from pathlib import Path
 
 # путь к папке проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     # для регистрации и подтверждения email
     "allauth.account",
     # для регистрации через соцсети(не добавил провайдеров, используется в dj_rest_auth.registration)
-    'allauth.socialaccount',
+    "allauth.socialaccount",
     # api для входа и выхода пользователя, сброса пароля и смены пароля
     "dj_rest_auth",
     # api для регистрации пользователя (обертка allauth)
@@ -137,7 +137,7 @@ TEMPLATES = [
         # используемый бэкенд для шаблонов (DjangoTemplates)
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         # список папок, в которых будут искаться шаблоны
-        'DIRS': [BASE_DIR / 'templates'],
+        "DIRS": [BASE_DIR / "templates"],
         # указывает, что шаблоны будут искаться в папках приложений
         "APP_DIRS": True,
         # дополнительные настройки
@@ -211,10 +211,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # настройки для cors, список хостов, которые могут обращаться к бэкенду
 CORS_ALLOWED_ORIGINS = [
     # react localhost
-    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://localhost:5173",
 ]
-
-# ACCOUNT_EMAIL_CONFIRMATION_URL = 'http://127.0.0.1:3000/password-reset-confirm/{uid}/{token}'
-
-# PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL = "http://localhost:3000/password-reset-confirm/"
-PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL = "http://localhost:8000/"
