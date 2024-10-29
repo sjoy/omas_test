@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import RefAnimalType, RefBreed, Animal, Weighting
 
-# Register your models here.
+# Register the models with the admin site
+admin.site.register(RefAnimalType)
+admin.site.register(RefBreed)
+admin.site.register(Animal)
+admin.site.register(Weighting)
