@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # путь к папке проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -115,6 +116,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "username"
 # уникальность почты
 ACCOUNT_UNIQUE_EMAIL = True
 
+
 # определяет способ аутентификации пользователя
 REST_FRAMEWORK = {
     # все представления будут требовать аутентификации (кроме тех, где указан permission_classes = [AllowAny])
@@ -133,7 +135,7 @@ TEMPLATES = [
         # используемый бэкенд для шаблонов (DjangoTemplates)
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         # список папок, в которых будут искаться шаблоны
-        "DIRS": [],
+        'DIRS': [BASE_DIR / 'templates'],
         # указывает, что шаблоны будут искаться в папках приложений
         "APP_DIRS": True,
         # дополнительные настройки
@@ -206,5 +208,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # настройки для cors, список хостов, которые могут обращаться к бэкенду
 CORS_ALLOWED_ORIGINS = [
+    # react localhost
     "http://127.0.0.1:3000",
 ]
+
+# ACCOUNT_EMAIL_CONFIRMATION_URL = 'http://127.0.0.1:3000/password-reset-confirm/{uid}/{token}'
+
+# PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL = "http://localhost:3000/password-reset-confirm/"
+PASSWORD_RESET_CONFIRM_REDIRECT_BASE_URL = "http://localhost:8000/"
