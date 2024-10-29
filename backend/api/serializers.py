@@ -1,5 +1,17 @@
 from rest_framework import serializers
-from .models import Animal, Weighting
+from .models import Animal, Weighting, RefAnimalType, RefBreed
+
+# сериализатор для справочника типов животных
+class RefAnimalTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RefAnimalType
+        fields = '__all__'
+
+# сериализатор для справочника пород
+class RefBreedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RefBreed
+        fields = '__all__'
 
 # сериализатор для модели Animal
 class AnimalSerializer(serializers.ModelSerializer):

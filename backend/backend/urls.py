@@ -26,4 +26,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='rest_login'),
     # для выхода
     path('logout/', LogoutView.as_view(), name='rest_logout'),
+    # для работы с API
+    path('api/', include('api.urls')),
 ]
