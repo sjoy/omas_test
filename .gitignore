@@ -2,3 +2,14 @@
 /.vscode
 *.pyc
 db.sqlite3
+
+# Include migration files
+!*/migrations/*.py
+!*/migrations/*.pyc
+
+# Ignore other files in the migrations directory
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+# Ignore .env file
+.env

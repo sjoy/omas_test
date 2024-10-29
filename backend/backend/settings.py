@@ -1,16 +1,21 @@
 from pathlib import Path
 
+from environs import Env
+
+env = Env()
+env.read_env()
+
 # путь к папке проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # секретный ключ проекта
-SECRET_KEY = "django-insecure-i*dz2*i4)e5i+h$ew_n#)%bku6tc8m4520jakn5b$(-m9=k2_j"
+SECRET_KEY = env.str("SECRET_KEY")
 
 # режим отладки
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
 # список хостов, которые могут обращаться к бэкенду
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
 
 # подключение приложений
@@ -74,18 +79,18 @@ MIDDLEWARE = [
 # бэкенд для отправки писем
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # хост почты
-EMAIL_HOST = "smtp.mail.ru"
+EMAIL_HOST = env.str("EMAIL_HOST", default="smtp.mail.ru")
 # если используется ssl, то порт 465 (если tls, то 587)
-EMAIL_PORT = 465
+EMAIL_PORT = env.int("EMAIL_PORT", default=465)
 # нельзя использовать и tls и ssl одновременно
 # использовать tls
-EMAIL_USE_TLS = False
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=False)
 # использовать ssl
-EMAIL_USE_SSL = True
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=True)
 # почта для отправки писем
-EMAIL_HOST_USER = "alicargo.kz@mail.ru"
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
 # пароль от почты
-EMAIL_HOST_PASSWORD = "qgFY4xfuCFqi6073Ji5a"
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 # почта по умолчанию
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
@@ -208,8 +213,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # настройки для cors, список хостов, которые могут обращаться к бэкенду
-CORS_ALLOWED_ORIGINS = [
-    # react localhost
-    "http://localhost:5173",
-    "http://localhost:5173",
-]
+CORS_ALLOWED_ORIGINS = env.list(
+    "CORS_ALLOWED_ORIGINS", default=["http://localhost:5173"]
+)
