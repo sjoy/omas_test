@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -97,7 +98,10 @@ class Weighting(models.Model):
         Animal, on_delete=models.CASCADE, verbose_name="Животное"
     )
     weight_date = models.DateField(verbose_name="Дата взвешивания")
-    weight = models.FloatField(verbose_name="Вес")
+    weight = models.FloatField(
+        verbose_name="Вес",
+        validators=[MinValueValidator(0.0)],
+    )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name="Пользователь"
     )

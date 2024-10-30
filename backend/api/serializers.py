@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Animal, Weighting, RefAnimalType, RefBreed
+
+from .models import Animal, RefAnimalType, RefBreed, Weighting
 
 
 # сериализатор для справочника типов животных
@@ -18,6 +19,10 @@ class RefBreedSerializer(serializers.ModelSerializer):
 
 # сериализатор для модели Animal
 class AnimalSerializer(serializers.ModelSerializer):
+    user = (
+        serializers.StringRelatedField()
+    )  # Возвращает строковое представление пользователя
+
     class Meta:
         model = Animal
         fields = "__all__"
@@ -25,6 +30,13 @@ class AnimalSerializer(serializers.ModelSerializer):
 
 # сериализатор для модели Weighting
 class WeightingSerializer(serializers.ModelSerializer):
+    animal = (
+        serializers.StringRelatedField()
+    )  # Возвращает строковое представление животного
+    user = (
+        serializers.StringRelatedField()
+    )  # Возвращает строковое представление пользователя
+
     class Meta:
         model = Weighting
         fields = "__all__"
