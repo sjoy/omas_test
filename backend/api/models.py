@@ -117,7 +117,4 @@ class Weighting(models.Model):
 
     def __str__(self):
         # В админке выводим название животного, вес и дату взвешивания
-        return (
-            f"{self.animal.nickname} - {self.weight} кг, ",
-            f"дата {self.weight_date}",
-        )
+        return f"{self.animal.nickname} - {self.weight} кг, дата {self.weight_date}"
