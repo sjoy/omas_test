@@ -30,13 +30,9 @@ class AnimalSerializer(serializers.ModelSerializer):
 
 # сериализатор для модели Weighting
 class WeightingSerializer(serializers.ModelSerializer):
-    animal = (
-        serializers.StringRelatedField()
-    )  # Возвращает строковое представление животного
-    user = (
-        serializers.StringRelatedField()
-    )  # Возвращает строковое представление пользователя
+    # Возвращает строковое представление животного
+    animal_name = serializers.StringRelatedField(source='animal')
 
     class Meta:
         model = Weighting
-        fields = "__all__"
+        fields = ["id", "animal", "animal_name", "weight_date", "weight"]
