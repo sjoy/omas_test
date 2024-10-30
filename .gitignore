@@ -3,13 +3,8 @@
 *.pyc
 db.sqlite3
 
-# Include migration files
-!*/migrations/*.py
-!*/migrations/*.pyc
-
-# Ignore other files in the migrations directory
-*/migrations/__pycache__/
-*/migrations/*.pyc
+# Ignore migration files
+*/migrations/
 
 # Ignore .env file
 .env
