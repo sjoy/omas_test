@@ -56,7 +56,7 @@ class Animal(models.Model):
     nickname = models.CharField(
         max_length=255,
         verbose_name="Кличка",
-        default="Unknown",
+        blank=False,
     )
     gender = models.CharField(
         max_length=1,
