@@ -198,7 +198,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "ru"
 
 # временная зона по умолчанию
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Aqtobe"
 
 # использование интернационализации
 USE_I18N = True

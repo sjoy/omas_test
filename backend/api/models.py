@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -90,6 +91,18 @@ class Animal(models.Model):
 
     def __str__(self):
         return self.nickname
+
+    def clean(self):
+        if self.parent:
+            if self.parent == self:
+                raise ValidationError(
+                    "Животное не может быть своим собственным родителем.",
+                )
+            # Проверяем, что родительское животное имеет ту же породу
+            if self.parent.breed != self.breed:
+                raise ValidationError(
+                    "Родительское животное должно быть той же породы.",
+                )
 
 
 # Рабочая таблица для взвешивания животных
