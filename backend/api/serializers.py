@@ -19,9 +19,8 @@ class RefBreedSerializer(serializers.ModelSerializer):
 
 # сериализатор для модели Animal
 class AnimalSerializer(serializers.ModelSerializer):
-    user = (
-        serializers.StringRelatedField()
-    )  # Возвращает строковое представление пользователя
+    breed = RefBreedSerializer()
+    parent = serializers.StringRelatedField()
 
     class Meta:
         model = Animal
@@ -31,7 +30,7 @@ class AnimalSerializer(serializers.ModelSerializer):
 # сериализатор для модели Weighting
 class WeightingSerializer(serializers.ModelSerializer):
     # Возвращает строковое представление животного
-    animal_name = serializers.StringRelatedField(source='animal')
+    animal_name = serializers.StringRelatedField(source="animal")
 
     class Meta:
         model = Weighting
