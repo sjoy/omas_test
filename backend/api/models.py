@@ -85,13 +85,6 @@ class Animal(models.Model):
         verbose_name="Дата обновления записи",
     )
 
-    class Meta:
-        verbose_name = "Животное"
-        verbose_name_plural = "Животные"
-
-    def __str__(self):
-        return self.nickname
-
     def clean(self):
         if self.parent:
             if self.parent == self:
@@ -103,6 +96,13 @@ class Animal(models.Model):
                 raise ValidationError(
                     "Родительское животное должно быть той же породы.",
                 )
+
+    class Meta:
+        verbose_name = "Животное"
+        verbose_name_plural = "Животные"
+
+    def __str__(self):
+        return f"{self.nickname} ({self.breed.animal_type})"
 
 
 # Рабочая таблица для взвешивания животных
