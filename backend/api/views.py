@@ -4,7 +4,8 @@ from rest_framework.response import Response
 
 from .models import Animal, RefAnimalType, RefBreed, Weighting
 from .serializers import (
-    AnimalSerializer,
+    AnimalReadSerializer,
+    AnimalWriteSerializer,
     RefAnimalTypeSerializer,
     RefBreedSerializer,
     WeightingSerializer,
@@ -26,7 +27,11 @@ class RefBreedViewSet(viewsets.ModelViewSet):
 # представление для животных
 class AnimalViewSet(viewsets.ModelViewSet):
     queryset = Animal.objects.all()
-    serializer_class = AnimalSerializer
+
+    def get_serializer_class(self):
+        if self.action in ["list", "retrieve"]:
+            return AnimalReadSerializer
+        return AnimalWriteSerializer
 
 
 # представление для взвешивания

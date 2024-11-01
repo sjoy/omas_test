@@ -17,10 +17,23 @@ class RefBreedSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-# сериализатор для модели Animal
-class AnimalSerializer(serializers.ModelSerializer):
+# Сериализатор для чтения (response) cправочника животных
+class AnimalReadSerializer(serializers.ModelSerializer):
     breed = RefBreedSerializer()
     parent = serializers.StringRelatedField()
+
+    class Meta:
+        model = Animal
+        fields = "__all__"
+
+
+# Сериализатор для записи/обновление данных cправочника животных
+class AnimalWriteSerializer(serializers.ModelSerializer):
+    breed = serializers.PrimaryKeyRelatedField(queryset=RefBreed.objects.all())
+    parent = serializers.PrimaryKeyRelatedField(
+        queryset=Animal.objects.all(),
+        allow_null=True,
+    )
 
     class Meta:
         model = Animal
