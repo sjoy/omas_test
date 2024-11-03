@@ -64,7 +64,9 @@ class Animal(models.Model):
         verbose_name="Пол",
     )
     arrival_date = models.DateField(verbose_name="Дата прибытия")
-    arrival_age = models.IntegerField(verbose_name="Возраст при прибытии")
+    arrival_age = models.IntegerField(
+        verbose_name="Возраст при прибытии (в месяцах)",
+    )
     breed = models.ForeignKey(
         RefBreed,
         on_delete=models.CASCADE,
