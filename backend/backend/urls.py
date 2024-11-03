@@ -1,8 +1,8 @@
 from dj_rest_auth.views import LoginView, LogoutView, UserDetailsView
 from django.contrib import admin
 from django.urls import include, path
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
 
 from .views import CustomConfirmEmailView
 
@@ -40,6 +40,14 @@ urlpatterns = [
     path("auth/user/", UserDetailsView.as_view(), name="rest_user_details"),
     # для работы с API
     path("api/", include("api.urls")),
-    path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
-    path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    path(
+        "swagger/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path(
+        "redoc/",
+        schema_view.with_ui("redoc", cache_timeout=0),
+        name="schema-redoc",
+    ),
 ]
