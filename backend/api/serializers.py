@@ -12,6 +12,14 @@ class RefAnimalTypeSerializer(serializers.ModelSerializer):
 
 # сериализатор для справочника пород
 class RefBreedSerializer(serializers.ModelSerializer):
+    # Accepts only the id of the animal type on write (POST/PUT)
+    animal_type = serializers.PrimaryKeyRelatedField(
+        queryset=RefAnimalType.objects.all(),
+        write_only=True
+    )
+    # Serializes the full animal type object on read (GET)
+    animal_type_details = RefAnimalTypeSerializer(source='animal_type', read_only=True)
+
     class Meta:
         model = RefBreed
         fields = "__all__"
@@ -20,7 +28,10 @@ class RefBreedSerializer(serializers.ModelSerializer):
 # Сериализатор для чтения (response) cправочника животных
 class AnimalReadSerializer(serializers.ModelSerializer):
     breed = RefBreedSerializer()
-    parent = serializers.StringRelatedField()
+    parent = serializers.PrimaryKeyRelatedField(
+        queryset=Animal.objects.all(),
+        allow_null=True,
+    )
 
     class Meta:
         model = Animal
