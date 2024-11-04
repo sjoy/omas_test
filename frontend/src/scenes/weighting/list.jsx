@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../../axiosConfig';
 
@@ -48,7 +48,10 @@ const WeightingsList = () => {
       .then(() => {
         setWeightings(weightings.filter((type) => type.id !== id));
       })
-      .catch((error) => console.error('Error deleting:', error));
+      .catch((error) => {
+        console.error('Error deleting:', error);
+        setError('Error deleting weighting');
+      });
   };
 
   const handleEdit = (id) => {
@@ -58,7 +61,7 @@ const WeightingsList = () => {
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-3">
-      <h2>Weightings List</h2>
+        <h2>Weightings List</h2>
         <Link to="/weighting/add" className="btn btn-primary">
           Add New Weighting
         </Link>
@@ -102,13 +105,11 @@ const WeightingsList = () => {
               <td>{weighting.weight}</td>
               <td>
                 <button
-                    onClick={() => handleEdit(weighting.id)}
-                    className="btn btn-warning btn-sm me-2"
-                    >
-                    Edit
-                    </button>
-              </td>
-              <td>
+                  onClick={() => handleEdit(weighting.id)}
+                  className="btn btn-warning btn-sm me-2"
+                >
+                  Edit
+                </button>
                 <button
                   onClick={() => handleDelete(weighting.id)}
                   className="btn btn-danger btn-sm"

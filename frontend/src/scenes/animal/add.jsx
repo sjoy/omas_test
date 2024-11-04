@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../axiosConfig';
 
@@ -22,12 +22,18 @@ const AnimalAdd = () => {
     // Fetch breed options
     api.get('/ref_breeds/')
       .then((response) => setBreeds(response.data))
-      .catch((error) => console.error('Error fetching breeds:', error));
+      .catch((error) => {
+        console.error('Error fetching breeds:', error);
+        setError('Error fetching breeds');
+      });
 
     // Fetch parent animal options
     api.get('/animals/')
       .then((response) => setParents(response.data))
-      .catch((error) => console.error('Error fetching parent animals:', error));
+      .catch((error) => {
+        console.error('Error fetching parent animals:', error);
+        setError('Error fetching parent animals');
+      });
   }, []);
 
   const handleChange = (e) => {
@@ -40,7 +46,7 @@ const AnimalAdd = () => {
     api.post('/animals/', animalData)
       .then(() => {
         alert('Animal added successfully!');
-        navigate('/animal'); // Redirect to animal list
+        navigate('/animals'); // Redirect to animal list
       })
       .catch((error) => {
         console.error('Error adding animal:', error);
@@ -160,7 +166,7 @@ const AnimalAdd = () => {
         </div>
 
         <button type="submit" className="btn btn-primary">Add Animal</button>
-        <button type="button" onClick={() => navigate('/animal')} className="btn btn-secondary ms-2">
+        <button type="button" onClick={() => navigate('/animals')} className="btn btn-secondary ms-2">
           Cancel
         </button>
       </form>

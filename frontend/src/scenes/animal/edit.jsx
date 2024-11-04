@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../axiosConfig';
 
@@ -24,8 +24,8 @@ const AnimalEdit = () => {
     api.get(`/animals/${id}/`)
       .then((response) => {
         setAnimalData({
-            ...response.data,
-            breed: response.data.breed.id,
+          ...response.data,
+          breed: response.data.breed.id,
         });
         setLoading(false);
       })
@@ -55,7 +55,7 @@ const AnimalEdit = () => {
     api.put(`/animals/${id}/`, animalData)
       .then(() => {
         alert('Animal updated successfully!');
-        navigate('/animal'); // Redirect to the animals list
+        navigate('/animals'); // Redirect to the animals list
       })
       .catch((error) => {
         console.error('Error updating animal:', error);
@@ -65,7 +65,6 @@ const AnimalEdit = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
-  console.log(animalData);
 
   return (
     <div className="container mt-5">
@@ -179,7 +178,7 @@ const AnimalEdit = () => {
         </div>
 
         <button type="submit" className="btn btn-primary">Save Changes</button>
-        <button type="button" onClick={() => navigate('/animal')} className="btn btn-secondary ms-2">
+        <button type="button" onClick={() => navigate('/animals')} className="btn btn-secondary ms-2">
           Cancel
         </button>
       </form>

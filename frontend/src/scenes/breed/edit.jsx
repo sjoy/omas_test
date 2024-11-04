@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../axiosConfig';
 
@@ -7,7 +7,6 @@ const BreedEdit = () => {
   const navigate = useNavigate(); // For navigating back to the list
   const [breed, setBreed] = useState({ breed_name: '', animal_type: '' });
   const [animalTypes, setAnimalTypes] = useState([]);
-  const [selectedAnimalType, setSelectedAnimalType] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -52,7 +51,7 @@ const BreedEdit = () => {
       .put(`/ref_breeds/${id}/`, breed)
       .then(() => {
         alert('Breed updated successfully!');
-        navigate('/breed'); // Redirect back to the list
+        navigate('/breeds'); // Redirect back to the list
       })
       .catch((error) => {
         setError('Failed to update breed.');
@@ -65,19 +64,19 @@ const BreedEdit = () => {
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <button onClick={() => navigate('/breed')} className="btn btn-secondary mt-2">
+        <button onClick={() => navigate('/breeds')} className="btn btn-secondary mt-2">
           Cancel
         </button>
       </div>
       <h2>Edit Breed</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="type_name" className="form-label">Type Name</label>
+          <label htmlFor="breed_name" className="form-label">Breed Name</label>
           <input
             type="text"
             className="form-control"
-            id="type_name"
-            name="type_name"
+            id="breed_name"
+            name="breed_name"
             value={breed.breed_name}
             onChange={handleChange}
             required

@@ -131,8 +131,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         # использовать токены для аутентификации
         "rest_framework.authentication.TokenAuthentication",
-        # использовать сессии для аутентификации
-        "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",

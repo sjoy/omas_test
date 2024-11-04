@@ -1,6 +1,8 @@
-// src/global/LogoutButton.jsx
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { IconButton } from "@mui/material";
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import { useState, useEffect } from 'react';
+import './LogoutButton.css'; // Импортируем стили
 
 const LOGOUT_URL = '/backend/auth/logout/';
 const LOGIN_URL = '/login';
@@ -21,7 +23,7 @@ const handleLogout = async (navigate, setError) => {
     }
 
     localStorage.clear();
-    navigate(LOGIN_URL);
+    navigate(LOGIN_URL, { replace: true });
   } catch (error) {
     setError(error.message);
   }
@@ -36,11 +38,19 @@ const LogoutButton = () => {
     await handleLogout(navigate, setError);
   };
 
+  useEffect(() => {
+    if (error) {
+      console.error(error);
+    }
+  }, [error]);
+
   return (
-    <div>
+    <>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleClick}>Logout</button>
-    </div>
+      <IconButton onClick={handleClick} title="Выход" className="logout-button">
+        <ExitToAppOutlinedIcon />
+      </IconButton>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../axiosConfig';
 
@@ -36,7 +36,7 @@ const WeightingAdd = () => {
     })
       .then(() => {
         alert('Weighting added successfully!');
-        navigate('/weighting');
+        navigate('/weightings');
       })
       .catch((error) => {
         console.error('Error adding weighting:', error);
@@ -94,7 +94,7 @@ const WeightingAdd = () => {
         </div>
         
         <button type="submit" className="btn btn-primary">Add Weighting</button>
-        <button type="button" onClick={() => navigate('/weighting')} className="btn btn-secondary ms-2">Cancel</button>
+        <button type="button" onClick={() => navigate('/weightings')} className="btn btn-secondary ms-2">Cancel</button>
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../axiosConfig';
 
@@ -46,7 +46,7 @@ const WeightingEdit = () => {
     })
       .then(() => {
         alert('Weighting updated successfully!');
-        navigate('/weighting');
+        navigate('/weightings');
       })
       .catch((error) => {
         console.error('Failed to update weighting:', error);
@@ -108,7 +108,7 @@ const WeightingEdit = () => {
         </div>
         
         <button type="submit" className="btn btn-primary">Save Changes</button>
-        <button type="button" onClick={() => navigate('/weighting')} className="btn btn-secondary ms-2">Cancel</button>
+        <button type="button" onClick={() => navigate('/weightings')} className="btn btn-secondary ms-2">Cancel</button>
       </form>
     </div>
   );

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../../axiosConfig';
 
 const AnimalsList = () => {
-  const [animals, setAnimal] = useState([]);
+  const [animals, setAnimals] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,19 +12,23 @@ const AnimalsList = () => {
     api
       .get('/animals/')
       .then((response) => {
-        setAnimal(response.data);
+        setAnimals(response.data);
       })
       .catch((error) => {
         console.error('Error fetching animals:', error);
+        setError('Error fetching animals');
       });
   }, []);
 
   const handleDelete = (id) => {
     api.delete(`/animals/${id}/`)
       .then(() => {
-        setAnimal(animals.filter((type) => type.id !== id));
+        setAnimals(animals.filter((type) => type.id !== id));
       })
-      .catch((error) => console.error('Error deleting:', error));
+      .catch((error) => {
+        console.error('Error deleting:', error);
+        setError('Error deleting animal');
+      });
   };
 
   // Navigate to the edit page for the selected animal
@@ -39,6 +44,7 @@ const AnimalsList = () => {
           Add New Animal
         </Link>
       </div>
+      {error && <div className="alert alert-danger">{error}</div>}
       <table className="table table-striped">
         <thead>
           <tr>
@@ -70,13 +76,11 @@ const AnimalsList = () => {
               <td>{animal.updated}</td>
               <td>
                 <button
-                    onClick={() => handleEdit(animal.id)}
-                    className="btn btn-warning btn-sm me-2"
-                    >
-                    Edit
-                    </button>
-              </td>
-              <td>
+                  onClick={() => handleEdit(animal.id)}
+                  className="btn btn-warning btn-sm me-2"
+                >
+                  Edit
+                </button>
                 <button
                   onClick={() => handleDelete(animal.id)}
                   className="btn btn-danger btn-sm"

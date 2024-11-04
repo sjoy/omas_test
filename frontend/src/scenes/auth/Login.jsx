@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const isAuthenticated = () => {
@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(false);
   const [errMsg, setErrMsg] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   const submitSuccess = location.state?.submitSuccess;
@@ -22,38 +23,42 @@ const Login = () => {
     }
   }, [navigate]);
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const user = {
       username: username,
       password: password,
     };
 
-    fetch('/backend/auth/login/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.key) {
-          localStorage.setItem('token', data.key);
-          navigate('/dashboard', { replace: true });
-        } else {
-          setUsername('');
-          setPassword('');
-          setErrors(true);
-          setErrMsg('Неверное имя пользователя или пароль');
-        }
-      })
-      .catch((error) => {
-        console.error('Ошибка при входе:', error);
-        setErrors(true);
-        setErrMsg('Произошла ошибка при входе. Попробуйте еще раз.');
+    try {
+      const response = await fetch('/backend/auth/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
       });
+      const data = await response.json();
+
+      if (data.key) {
+        localStorage.setItem('token', data.key);
+        navigate('/dashboard', { replace: true });
+      } else {
+        setUsername('');
+        setPassword('');
+        setErrors(true);
+        setErrMsg('Неверное имя пользователя или пароль');
+      }
+    } catch {
+      setUsername('');
+      setPassword('');
+      setErrors(true);
+      setErrMsg('Произошла ошибка при входе. Попробуйте еще раз.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -87,8 +92,8 @@ const Login = () => {
                 />
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="w-100">
-                Войти
+              <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
+                {isLoading ? <Spinner animation="border" size="sm" /> : 'Войти'}
               </Button>
             </Form>
             <div className="d-grid gap-2 mt-3">

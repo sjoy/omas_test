@@ -1,0 +1,8 @@
+.logout-button {
+    color: white !important; /* Цвет текста */
+    transition: color 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    color: #ffcc00; /* Цвет яркости при наведении */
+  }

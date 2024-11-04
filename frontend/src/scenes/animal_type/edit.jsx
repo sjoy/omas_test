@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../axiosConfig';
 
@@ -35,7 +35,7 @@ const AnimalTypeEdit = () => {
       .put(`/ref_animal_types/${id}/`, animalType)
       .then(() => {
         alert('Animal type updated successfully!');
-        navigate('/animal-type'); // Redirect back to the list
+        navigate('/animal-types'); // Redirect back to the list
       })
       .catch((error) => {
         setError('Failed to update animal type.');
@@ -65,7 +65,7 @@ const AnimalTypeEdit = () => {
         <button
           type="button"
           className="btn btn-secondary ms-2"
-          onClick={() => navigate('/animal-type')}
+          onClick={() => navigate('/animal-types')}
         >
           Cancel
         </button>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import api from '../../axiosConfig';
+import { useEffect, useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import api from "../../axiosConfig";
 
 const AnimalTypesList = () => {
   const [animalTypes, setAnimalTypes] = useState([]);
@@ -9,21 +9,22 @@ const AnimalTypesList = () => {
   useEffect(() => {
     // Fetch the data from the API
     api
-      .get('/ref_animal_types/')
+      .get("/ref_animal_types/")
       .then((response) => {
         setAnimalTypes(response.data);
       })
       .catch((error) => {
-        console.error('Error fetching animal types:', error);
+        console.error("Error fetching animal types:", error);
       });
   }, []);
 
   const handleDelete = (id) => {
-    api.delete(`/ref_animal_types/${id}/`)
+    api
+      .delete(`/ref_animal_types/${id}/`)
       .then(() => {
         setAnimalTypes(animalTypes.filter((type) => type.id !== id));
       })
-      .catch((error) => console.error('Error deleting:', error));
+      .catch((error) => console.error("Error deleting:", error));
   };
 
   // Navigate to the edit page for the selected animal type
@@ -54,13 +55,11 @@ const AnimalTypesList = () => {
               <td>{animal.type_name}</td>
               <td>
                 <button
-                    onClick={() => handleEdit(animal.id)}
-                    className="btn btn-warning btn-sm me-2"
-                    >
-                    Edit
-                    </button>
-              </td>
-              <td>
+                  onClick={() => handleEdit(animal.id)}
+                  className="btn btn-warning btn-sm me-2"
+                >
+                  Edit
+                </button>
                 <button
                   onClick={() => handleDelete(animal.id)}
                   className="btn btn-danger btn-sm"

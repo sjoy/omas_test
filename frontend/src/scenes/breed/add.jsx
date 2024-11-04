@@ -6,6 +6,7 @@ function BreedAdd() {
   const [newBreedName, setNewBreedName] = useState('');
   const [animalTypes, setAnimalTypes] = useState([]);
   const [selectedAnimalType, setSelectedAnimalType] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +14,10 @@ function BreedAdd() {
       .then((response) => {
         setAnimalTypes(response.data);
       })
-      .catch((error) => console.error('Error fetching animal types:', error));
+      .catch((error) => {
+        console.error('Error fetching animal types:', error);
+        setError('Error fetching animal types');
+      });
   }, []);
 
   const handleAdd = () => {
@@ -29,9 +33,12 @@ function BreedAdd() {
       .then(() => {
         setNewBreedName(''); // Clear the input field
         setSelectedAnimalType('');
-        navigate('/breed'); // Redirect back to the main list page
+        navigate('/breeds'); // Redirect back to the main list page
       })
-      .catch((error) => console.error('Error adding breed:', error));
+      .catch((error) => {
+        console.error('Error adding breed:', error);
+        setError('Error adding breed');
+      });
   };
 
   return (
@@ -42,6 +49,7 @@ function BreedAdd() {
         </button>
       </div>
       <h3>Add New Breed</h3>
+      {error && <div className="alert alert-danger">{error}</div>}
       <div className="input-group mb-3">
         <input
           type="text"

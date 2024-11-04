@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../axiosConfig';
 
 function AnimalTypeAdd() {
   const [newTypeName, setNewTypeName] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleAdd = () => {
@@ -15,14 +16,18 @@ function AnimalTypeAdd() {
     api.post('/ref_animal_types/', { type_name: newTypeName })
       .then(() => {
         setNewTypeName(''); // Clear the input field
-        navigate('/animal-type'); // Redirect back to the main list page
+        navigate('/animal-types'); // Redirect back to the main list page
       })
-      .catch((error) => console.error('Error adding animal type:', error));
+      .catch((error) => {
+        console.error('Error adding animal type:', error);
+        setError('Error adding animal type');
+      });
   };
 
   return (
     <div className="container mt-5">
       <h3>Add New Animal Type</h3>
+      {error && <div className="alert alert-danger">{error}</div>}
       <div className="input-group mb-3">
         <input
           type="text"
@@ -35,7 +40,7 @@ function AnimalTypeAdd() {
           Add
         </button>
       </div>
-      <button onClick={() => navigate('/animal-type')} className="btn btn-secondary mt-2">
+      <button onClick={() => navigate('/animal-types')} className="btn btn-secondary mt-2">
         Back to List
       </button>
     </div>
