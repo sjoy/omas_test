@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-// import Dashboard from './scenes/Dashboard';
+import Dashboard from './scenes/dashboard/index';
 import Login from './scenes/auth/Login';
 import Registration from './scenes/auth/Registration';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -23,10 +23,10 @@ const App = () => {
     <Router>
       <NavigationBar />
       <Routes>
-        {/* <Route path="/" element={<Navigate to="/dashboard" />} /> */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        {/* <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} /> */}
+        <Route path="/dashboard" element={<PrivateRoute element={<Dashboard />} />} />
 
         <Route path="/animal-types" element={<PrivateRoute element={<AnimalTypesList />} />} />
         <Route path="/animal-type/add" element={<PrivateRoute element={<AnimalTypeAdd />} />} />
